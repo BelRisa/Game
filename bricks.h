@@ -46,7 +46,7 @@ void resolveWallCollision(float* x, float* vx, float* y, float* vy, float radius
 
 void collisionTablet(float stickx, float sticky, float sticklx, float x, float y, float* vy, float radius, const float DT)
 {
-    if ((y + 2 * radius >= sticky) and (y + 2 * radius < sticky + *vy * DT) and (x <= stickx + sticklx) and (x >= stickx))
+    if ((y + 2 * radius >= sticky) and (y + 2 * radius < sticky + *vy * DT) and (x <= stickx + sticklx) and (x + 2*radius >= stickx))
     {
         *vy = -*vy;
     }
@@ -63,26 +63,31 @@ void brickCollision(float x, float y, float *vx, float *vy, float radius, const 
         m = k % 2;
         if (array[i] != 0)
         {
-            if ((100 - 40 * m + 83 * j <= x + 2 * radius) and (100 - 40 * m + 83 * j + *vx * DT > x + 2 * radius) and ( 100 + 35 * k <= y + radius) and ( 100 + 35 * k + 30 >= y + radius))
+            if ((250 - 40 * m + 83 * j <= x + radius) and (250 - 40 * m + 83 * j + 80 >= x + radius) and ( 100 + 35 * k <= y + 2 * radius) and ( 100 + 35 * k + *vy * DT >= y + 2 * radius))
+                {
+                    *vy = - *vy;
+                    array[i] = {0};
+                    break;
+                }
+            if ((250 - 40 * m + 83 * j <= x + radius) and (250 - 40 * m + 83 * j + 80 >= x + radius) and ( 100 + 35 * k + 30 >= y) and ( 100 + 35 * k + 30 + *vy * DT <= y ))
+                {
+                    *vy = - *vy;
+                    array[i] = {0};
+                    break;
+                }
+            if ((250 - 40 * m + 83 * j <= x + 2 * radius) and (250 - 40 * m + 83 * j + *vx * DT >= x + 2 * radius) and ( 100 + 35 * k <= y + radius) and ( 100 + 35 * k + 30 >= y + radius))
             {
                 *vx = - *vx;
                 array[i] = {0};
+                break;
             }
-            else if ((100 - 40 * m + 83 * j - *vx * DT <= x ) and (100 - 40 * m + 83 * j + 80 > x ) and ( 100 + 35 * k <= y + radius) and ( 100 + 35 * k + 30 >= y + radius))
+            if ((250 - 40 * m + 83 * j + *vx * DT <= x ) and (250 - 40 * m + 83 * j + 80 >= x ) and ( 100 + 35 * k <= y + radius) and ( 100 + 35 * k + 30 >= y + radius))
             {
                 *vx = - *vx;
                 array[i] = {0};
+                break;
             }
-            else if ((100 - 40 * m + 83 * j <= x + radius) and (100 - 40 * m + 83 * j + 80 >= x + radius) and ( 100 + 35 * k <= y + 2 * radius) and ( 100 + 35 * k + *vy * DT >= y + 2 * radius))
-            {
-                *vy = - *vy;
-                array[i] = {0};
-            }
-            else if ((100 - 40 * m + 83 * j <= x + radius) and (100 - 40 * m + 83 * j + 80 >= x + radius) and ( 100 + 35 * k + 30 >= y) and ( 100 + 35 * k + 30 - *vy * DT <= y ))
-            {
-                *vy = - *vy;
-                array[i] = {0};
-            }
+            
         }
 
         j += 1;
