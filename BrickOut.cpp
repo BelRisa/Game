@@ -8,13 +8,13 @@
 
 int main()
 {
-    float windowx = 1000;
+    float windowx = 1300;
     float windowy = 800;
     float radius = 10;
-    float vx = 50;
+    float vx = 60;
     float vy = -50;
-    float sticklx = 100;
-    float stickly = 10; 
+    float sticklx = 160;
+    float stickly = 7; 
     float stickx = windowx / 2 - sticklx / 2;
     float sticky = windowy - (50 + stickly); 
 
@@ -70,7 +70,7 @@ int main()
     shape.setFillColor(sf::Color::Green);
     shape.setPosition({ x, y });
 
-    sf::RectangleShape rectangle(sf::Vector2f(100.f, 10.f));
+    sf::RectangleShape rectangle(sf::Vector2f(160.f, 7.f));
     rectangle.setPosition({ stickx, sticky });
     rectangle.setFillColor(sf::Color::Blue); 
 
@@ -78,15 +78,8 @@ int main()
     rectangle1.setPosition({ stickx, sticky });
     rectangle1.setFillColor(sf::Color::Red);
 
-    while (window.isOpen())
+    while (array[40] == 1)
     {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-
         window.clear();
         shape.setPosition({ x, y });
         rectangle.setPosition({ stickx, sticky });
@@ -98,7 +91,7 @@ int main()
         for (int i = 0; i < 40; i++)
         {   
             m = k % 2;
-            rectangle1.setPosition({ 100 - 40 * m + 83 * j, 100 + 35 * k });
+            rectangle1.setPosition({ 250 - 40 * m + 83 * j, 100 + 35 * k });
             if (array[i] == 1)
             {
                 window.draw(rectangle1);    
@@ -127,9 +120,8 @@ int main()
         window.display();
         if (y >= 780)
         {
-            window.close();
+            window.clear();
             array[40] = {2};
-            break;
         }
 
         int q = 0;
@@ -147,56 +139,53 @@ int main()
 
             else if (q == 40)
             {
-                window.close();
+                window.clear();
                 array[40] = {3};
-                break;
             }
         }  
     }
 
     if (array[40] == 2)
     {
-        sf::RenderWindow window1(sf::VideoMode(windowx, windowy), "UwU");
         sf::Texture t;
-        t.loadFromFile("ya4.jpg");
+        t.loadFromFile("lose.jpg");
         sf::Sprite s;
         s.setTexture(t);
-        s.setPosition(0, 100 );
+        s.setPosition(100, 250 );
 
-        while (window1.isOpen())
+        while (window.isOpen())
         {
             sf::Event event;
-            while (window1.pollEvent(event))
+            while (window.pollEvent(event))
             {
                 if (event.type == sf::Event::Closed)
-                    window1.close();
+                    window.close();
             }
-            window1.clear();
-            window1.draw(s);
-            window1.display();
+            window.clear();
+            window.draw(s);
+            window.display();
         }
     }
 
     if (array[40] == 3)
     {
-        sf::RenderWindow window1(sf::VideoMode(windowx, windowy), "UwU");
         sf::Texture t;
-        t.loadFromFile("33.jpg");
+        t.loadFromFile("win.jpg");
         sf::Sprite s;
         s.setTexture(t);
-        s.setPosition(80, 180);
+        s.setPosition(100, 250);
 
-        while (window1.isOpen())
+        while (window.isOpen())
         {
             sf::Event event;
-            while (window1.pollEvent(event))
+            while (window.pollEvent(event))
             {
                 if (event.type == sf::Event::Closed)
-                    window1.close();
+                    window.close();
             }
-            window1.clear();
-            window1.draw(s);
-            window1.display();
+            window.clear();
+            window.draw(s);
+            window.display();
         }
         
     }
